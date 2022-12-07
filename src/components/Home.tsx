@@ -71,7 +71,7 @@ const Home = () => {
 
   const handleClick = async () => {
     const body = {
-      pageId: pageId,
+      pageid: pageId,
     };
     try {
       const result = await axios.post("https://heyinsa.kr/sbd/check", body);
@@ -84,6 +84,7 @@ const Home = () => {
       setState("network");
     }
     setState("default");
+    setPageId("");
   };
 
   useEffect(() => {
@@ -114,7 +115,7 @@ const Home = () => {
       <div className="texts">
         {
           {
-            default: <p>Scan QR Code</p>,
+            default: <p>QR Code를 스캔해주세요</p>,
             fail: <p>존재하지 않는 QR Code 입니다</p>,
             valid: <p>유효한 QR Code 입니다</p>,
             usefail: <p>QR Code 사용에 실패했습니다(관리자에게 문의하세요)</p>,
