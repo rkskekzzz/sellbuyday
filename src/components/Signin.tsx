@@ -46,6 +46,7 @@ const SignInBox = styled.div`
   flex-direction: column;
   justify-content: center;
   height: 100%;
+  width: 100%;
 
   h1 {
     text-align: center;

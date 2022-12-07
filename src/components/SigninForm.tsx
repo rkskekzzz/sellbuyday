@@ -41,6 +41,7 @@ const SignForm = ({ submitAction, submitButtonText }: SignFormProps) => {
         id="outlined-basic"
         label="id"
         variant="outlined"
+        fullWidth
       />
       <TextField
         type="password"
@@ -51,6 +52,7 @@ const SignForm = ({ submitAction, submitButtonText }: SignFormProps) => {
         id="outlined-basic"
         label="password"
         variant="outlined"
+        fullWidth
       />
       <Button
         fullWidth
