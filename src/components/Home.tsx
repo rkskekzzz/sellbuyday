@@ -71,7 +71,7 @@ const Home = () => {
 
   const handleClick = async () => {
     const body = {
-      pageId: state,
+      pageId: pageId,
     };
     try {
       const result = await axios.post("https://heyinsa.kr/sbd/check", body);
@@ -83,6 +83,7 @@ const Home = () => {
     } catch (e) {
       setState("network");
     }
+    setState("default");
   };
 
   useEffect(() => {
