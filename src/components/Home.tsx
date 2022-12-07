@@ -36,6 +36,10 @@ const HomeContainer = styled.div`
     left: 50%;
     transform: translateX(-50%);
   }
+
+  .green {
+    color: green;
+  }
 `;
 
 const Home = () => {
@@ -52,8 +56,14 @@ const Home = () => {
     };
     try {
       const result = await axios.post("https://heyinsa.kr/sbd/code", body);
-      setState("valid");
-      setPageId(result.data);
+      if (result.data === "fail") {
+        setState("fail");
+      } else if (result.data === "used") {
+        setState("used");
+      } else {
+        setState("success");
+        setPageId(result.data);
+      }
     } catch (e) {
       setState("network");
     }
@@ -68,7 +78,7 @@ const Home = () => {
       if (result.data === "success") {
         setState("success");
       } else {
-        setState("used");
+        setState("fail");
       }
     } catch (e) {
       setState("network");
@@ -107,13 +117,18 @@ const Home = () => {
             fail: <p>존재하지 않는 QR Code 입니다</p>,
             valid: <p>유효한 QR Code 입니다</p>,
             used: <p>이미 사용된 QR Code 입니다</p>,
-            success: <p>QR Code 사용이 완료되었습니다</p>,
+            success: <p className="green">QR Code 사용이 완료되었습니다</p>,
             network: <p>네트워크 오류가 발생했습니다</p>,
           }[state]
         }
       </div>
       <p>{errorMessage}</p>
-      <Button variant="contained" className="btn" onClick={handleClick}>
+      <Button
+        variant="contained"
+        className="btn"
+        onClick={handleClick}
+        disabled={state === "valid"}
+      >
         사용하기
       </Button>
     </HomeContainer>
