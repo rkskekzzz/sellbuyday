@@ -18,14 +18,14 @@ const Sign = () => {
     console.log(result);
     if (result.data === "success") {
       window.localStorage.setItem("id", id);
-      navigate("/app");
+      navigate("/");
     }
   };
 
   useEffect(() => {
     const id = window.localStorage.getItem("id");
     if (!!id && id !== "") {
-      navigate("/app");
+      navigate("/");
     }
   }, []);
 

@@ -16,7 +16,7 @@ type State = {
 const ProtectedRoute = () => {
   const id = window.localStorage.getItem("id");
   if (!id || id === "") {
-    return <Navigate to={"/"} replace />;
+    return <Navigate to={"/sign"} replace />;
   }
   return <Outlet />;
 };
@@ -25,9 +25,9 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Sign />} />
+        <Route path="/sign" element={<Sign />} />
         <Route element={<ProtectedRoute />}>
-          <Route path="/app" element={<Home />} />
+          <Route path="/" element={<Home />} />
         </Route>
         <Route path="/404" element={<Error />} />
         <Route path="*" element={<Navigate to="/404" />} />
