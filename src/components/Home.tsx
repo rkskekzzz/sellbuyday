@@ -40,6 +40,12 @@ const HomeContainer = styled.div`
   .green {
     color: green;
   }
+  .blue {
+    color: blue;
+  }
+  .red {
+    color: red;
+  }
 `;
 
 const Home = () => {
@@ -117,10 +123,14 @@ const Home = () => {
         {
           {
             default: <p>QR Code를 스캔해주세요</p>,
-            fail: <p>존재하지 않는 QR Code 입니다</p>,
-            valid: <p>유효한 QR Code 입니다</p>,
-            usefail: <p>QR Code 사용에 실패했습니다(관리자에게 문의하세요)</p>,
-            used: <p>이미 사용된 QR Code 입니다</p>,
+            fail: <p className="red">존재하지 않는 QR Code 입니다</p>,
+            valid: <p className="blue">유효한 QR Code 입니다</p>,
+            usefail: (
+              <p className="red">
+                QR Code 사용에 실패했습니다(관리자에게 문의하세요)
+              </p>
+            ),
+            used: <p className="red">이미 사용된 QR Code 입니다</p>,
             success: <p className="green">QR Code 사용이 완료되었습니다</p>,
             network: <p>네트워크 오류가 발생했습니다</p>,
           }[state]
