@@ -61,7 +61,7 @@ const Home = () => {
       } else if (result.data === "used") {
         setState("used");
       } else {
-        setState("success");
+        setState("valid");
         setPageId(result.data);
       }
     } catch (e) {
@@ -78,7 +78,7 @@ const Home = () => {
       if (result.data === "success") {
         setState("success");
       } else {
-        setState("fail");
+        setState("usefail");
       }
     } catch (e) {
       setState("network");
@@ -116,6 +116,7 @@ const Home = () => {
             default: <p>Scan QR Code</p>,
             fail: <p>존재하지 않는 QR Code 입니다</p>,
             valid: <p>유효한 QR Code 입니다</p>,
+            usefail: <p>QR Code 사용에 실패했습니다(관리자에게 문의하세요)</p>,
             used: <p>이미 사용된 QR Code 입니다</p>,
             success: <p className="green">QR Code 사용이 완료되었습니다</p>,
             network: <p>네트워크 오류가 발생했습니다</p>,
