@@ -128,7 +128,7 @@ const Home = () => {
         variant="contained"
         className="btn"
         onClick={handleClick}
-        disabled={state === "valid"}
+        disabled={state !== "valid"}
       >
         사용하기
       </Button>
