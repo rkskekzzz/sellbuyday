@@ -19,7 +19,7 @@ const HomeContainer = styled.div`
     margin: 0;
     padding: 5px;
     z-index: 100;
-    top: 0;
+    top: 20px;
     width: 100%;
     height: 60px;
 
@@ -43,7 +43,7 @@ const HomeContainer = styled.div`
 `;
 
 const Home = () => {
-  const [code, setCode] = useState("No result");
+  const [code, setCode] = useState("");
   const [state, setState] = useState("default");
   const [pageId, setPageId] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
@@ -85,10 +85,11 @@ const Home = () => {
     }
     setState("default");
     setPageId("");
+    setCode("");
   };
 
   useEffect(() => {
-    handleScan(code);
+    if (code !== "") handleScan(code);
   }, [code]);
 
   console.log(state);
