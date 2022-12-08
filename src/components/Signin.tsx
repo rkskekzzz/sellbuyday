@@ -14,12 +14,16 @@ const Sign = () => {
       id: id,
       pw: pw,
     };
-    const result = await axios.post("https://heyinsa.kr/sbd/signin", body);
-    console.log(result);
-    if (result.data === "success") {
-      window.localStorage.setItem("id", id);
-      navigate("/");
+    try {
+      const result = await axios.post("https://heyinsa.kr/sbd/signin", body);
+      console.log(result);
+      if (result.data === "success") {
+        window.localStorage.setItem("id", id);
+      }
+    } catch (e) {
+      console.log(e);
     }
+    navigate("/");
   };
 
   useEffect(() => {
