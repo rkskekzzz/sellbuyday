@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { QrReader } from "react-qr-reader";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 import { Button } from "@mui/material";
 import styled from "@emotion/styled";
 
@@ -53,6 +54,7 @@ const Home = () => {
   const [state, setState] = useState("default");
   const [pageId, setPageId] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
+  const navigate = useNavigate();
 
   const handleScan = async (code: any) => {
     const id = window.localStorage.getItem("id");
@@ -73,6 +75,11 @@ const Home = () => {
     } catch (e) {
       setState("network");
     }
+  };
+
+  const handleLogout = () => {
+    window.localStorage.removeItem("id");
+    navigate("/sign");
   };
 
   const handleClick = async () => {
@@ -104,6 +111,7 @@ const Home = () => {
     <HomeContainer>
       <h1>
         Sell Buy Day <span>QR Code Reader</span>
+        <Button onClick={handleLogout}>logout</Button>
       </h1>
       <div>
         <QrReader
