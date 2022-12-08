@@ -124,7 +124,9 @@ const Home = () => {
               console.info(error);
             }
           }}
-          constraints={{}}
+          constraints={{
+            facingMode: "environment",
+          }}
         />
       </div>
       <div className="texts">
