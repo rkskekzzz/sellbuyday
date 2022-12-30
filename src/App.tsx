@@ -12,10 +12,6 @@ type State = {
 const ProtectedRoute = () => {
   const id = window.localStorage.getItem('id');
   // dev mode
-  if (process.env.NODE_ENV === 'development') {
-    console.log('dev mode');
-    return <Outlet />;
-  }
   if (!id || id === '') {
     return <Navigate to={'/sign'} replace />;
   }
