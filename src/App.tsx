@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { useReducer, createContext, Dispatch } from 'react';
 import { Error, Home, Sign } from './components';
+import { Analytics } from '@vercel/analytics/react';
 
 import { BrowserRouter, Routes, Route, Navigate, Outlet } from 'react-router-dom';
 
@@ -23,16 +24,19 @@ const ProtectedRoute = () => {
 
 function App() {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path='/sign' element={<Sign />} />
-        <Route element={<ProtectedRoute />}>
-          <Route path='/' element={<Home />} />
-        </Route>
-        <Route path='/404' element={<Error />} />
-        <Route path='*' element={<Navigate to='/404' />} />
-      </Routes>
-    </BrowserRouter>
+    <>
+      <BrowserRouter>
+        <Routes>
+          <Route path='/sign' element={<Sign />} />
+          <Route element={<ProtectedRoute />}>
+            <Route path='/' element={<Home />} />
+          </Route>
+          <Route path='/404' element={<Error />} />
+          <Route path='*' element={<Navigate to='/404' />} />
+        </Routes>
+      </BrowserRouter>
+      <Analytics />
+    </>
   );
 }
 export default App;
