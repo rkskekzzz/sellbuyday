@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from "react";
-import { QrReader } from "react-qr-reader";
-import axios from "axios";
-import { useNavigate } from "react-router-dom";
-import { Button } from "@mui/material";
-import styled from "@emotion/styled";
+import React, { useEffect, useState } from 'react';
+import { QrReader } from 'react-qr-reader';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+import { Button } from '@mui/material';
+import styled from '@emotion/styled';
+import SBDLogo from '../assets/sbd.svg';
 
 const HomeContainer = styled.div`
   display: flex;
@@ -50,36 +51,36 @@ const HomeContainer = styled.div`
 `;
 
 const Home = () => {
-  const [code, setCode] = useState("");
-  const [state, setState] = useState("default");
-  const [pageId, setPageId] = useState("");
-  const [errorMessage, setErrorMessage] = useState("");
+  const [code, setCode] = useState('');
+  const [state, setState] = useState('default');
+  const [pageId, setPageId] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
   const navigate = useNavigate();
 
   const handleScan = async (code: any) => {
-    const id = window.localStorage.getItem("id");
+    const id = window.localStorage.getItem('id');
     const body = {
       id: id,
       code: code,
     };
     try {
-      const result = await axios.post("https://heyinsa.kr/sbd/code", body);
-      if (result.data === "fail") {
-        setState("fail");
-      } else if (result.data === "used") {
-        setState("used");
+      const result = await axios.post('https://heyinsa.kr/sbd/code', body);
+      if (result.data === 'fail') {
+        setState('fail');
+      } else if (result.data === 'used') {
+        setState('used');
       } else {
-        setState("valid");
+        setState('valid');
         setPageId(result.data);
       }
     } catch (e) {
-      setState("network");
+      setState('network');
     }
   };
 
   const handleLogout = () => {
-    window.localStorage.removeItem("id");
-    navigate("/sign");
+    window.localStorage.removeItem('id');
+    navigate('/sign');
   };
 
   const handleClick = async () => {
@@ -87,30 +88,36 @@ const Home = () => {
       pageid: pageId,
     };
     try {
-      const result = await axios.post("https://heyinsa.kr/sbd/check", body);
-      if (result.data === "success") {
-        setState("success");
+      const result = await axios.post('https://heyinsa.kr/sbd/check', body);
+      if (result.data === 'success') {
+        setState('success');
       } else {
-        setState("usefail");
+        setState('usefail');
       }
     } catch (e) {
-      setState("network");
+      setState('network');
     }
-    setState("default");
-    setPageId("");
-    setCode("");
+    setState('default');
+    setPageId('');
+    setCode('');
   };
 
   useEffect(() => {
-    if (code !== "") handleScan(code);
+    if (code !== '') handleScan(code);
   }, [code]);
 
   console.log(state);
 
   return (
     <HomeContainer>
-      <h1>
-        Sell Buy Day <span>QR Code Reader</span>
+      <h1 style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+        <img src={SBDLogo} alt='logo' height='100%' />
+        <span style={{ display: 'flex' }}>
+          <div style={{ color: '#c95e4b' }}>S</div>
+          <div style={{ color: '#67925d' }}>B</div>
+          <div style={{ color: '#5581e0' }}>D</div>
+          <div style={{ marginLeft: '10px' }}>QR Code Reader</div>
+        </span>
         <Button onClick={handleLogout}>logout</Button>
       </h1>
       <div>
@@ -125,34 +132,25 @@ const Home = () => {
             }
           }}
           constraints={{
-            facingMode: "environment",
+            facingMode: 'environment',
           }}
         />
       </div>
-      <div className="texts">
+      <div className='texts'>
         {
           {
             default: <p>QR Code를 스캔해주세요</p>,
-            fail: <p className="red">존재하지 않는 QR Code 입니다</p>,
-            valid: <p className="blue">유효한 QR Code 입니다</p>,
-            usefail: (
-              <p className="red">
-                QR Code 사용에 실패했습니다(관리자에게 문의하세요)
-              </p>
-            ),
-            used: <p className="red">이미 사용된 QR Code 입니다</p>,
-            success: <p className="green">QR Code 사용이 완료되었습니다</p>,
+            fail: <p className='red'>존재하지 않는 QR Code 입니다</p>,
+            valid: <p className='blue'>유효한 QR Code 입니다</p>,
+            usefail: <p className='red'>QR Code 사용에 실패했습니다(관리자에게 문의하세요)</p>,
+            used: <p className='red'>이미 사용된 QR Code 입니다</p>,
+            success: <p className='green'>QR Code 사용이 완료되었습니다</p>,
             network: <p>네트워크 오류가 발생했습니다</p>,
           }[state]
         }
       </div>
       <p>{errorMessage}</p>
-      <Button
-        variant="contained"
-        className="btn"
-        onClick={handleClick}
-        disabled={state !== "valid"}
-      >
+      <Button variant='contained' className='btn' onClick={handleClick} disabled={state !== 'valid'}>
         사용하기
       </Button>
     </HomeContainer>
